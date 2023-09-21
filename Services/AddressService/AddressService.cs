@@ -12,23 +12,27 @@ namespace DesafioSoftingal.Services.AddressService
             new Address {Id = 1, Codpostal = "4444-000"}
         };
 
-        public List<Address> AddAddress(Address newAddress)
+        public async Task<ServiceResponse<List<Address>>> AddAddress(Address newAddress)
         {
+            var serviceResponse = new ServiceResponse<List<Address>>();
             addresses.Add(newAddress);
-            return addresses;
+            serviceResponse.Data = addresses;
+            return serviceResponse;
         }
 
-        public List<Address> GetAllAddresses()
+        public async Task<ServiceResponse<List<Address>>> GetAllAddresses()
         {
-            return addresses;
+            var serviceResponse = new ServiceResponse<List<Address>>();
+            serviceResponse.Data = addresses;
+            return serviceResponse;
         }
 
-        public Address GetAddressById(int id)
+        public async Task<ServiceResponse<Address>> GetAddressById(int id)
         {
+            var serviceResponse = new ServiceResponse<Address>();
             var address = addresses.FirstOrDefault(a => a.Id == id);
-            if(address is not null)
-                return address;
-            throw new Exception("Adress Not FOund!!!");
+            serviceResponse.Data = address;
+            return serviceResponse;
         }
     }
 }

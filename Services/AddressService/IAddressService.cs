@@ -7,10 +7,10 @@ namespace DesafioSoftingal.Services.AddressService
 {
     public interface IAddressService
     {
-        List<Address> GetAllAddresses();
+        Task<ServiceResponse<List<Address>>> GetAllAddresses();
 
-        Address GetAddressById(int id);
+        Task<ServiceResponse<Address>> GetAddressById(int id);
 
-        List<Address> AddAddress(Address newAddress);
+        Task<ServiceResponse<List<Address>>> AddAddress(Address newAddress);
     }
 }
