@@ -21,7 +21,9 @@ namespace DesafioSoftingal.Services.AddressService
         public async Task<ServiceResponse<List<GetAddressResponseDTO>>> AddAddress(AddAddressRequestDTO newAddress)
         {
             var serviceResponse = new ServiceResponse<List<GetAddressResponseDTO>>();
-            addresses.Add(_mapper.Map<Address>(newAddress));
+            var address = _mapper.Map<Address>(newAddress);
+            address.Id = addresses.Max(a => a.Id) + 1;
+            addresses.Add(address);
             serviceResponse.Data = addresses.Select(a => _mapper.Map<GetAddressResponseDTO>(a)).ToList();
             return serviceResponse;
         }
