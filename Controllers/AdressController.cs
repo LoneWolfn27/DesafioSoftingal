@@ -24,20 +24,20 @@ namespace DesafioSoftingal.Controllers
 
         //Vai buscar todas as Moradas
         [HttpGet("GetAll")]
-        public async Task<ActionResult<ServiceResponse<List<Address>>>> Get()
+        public async Task<ActionResult<ServiceResponse<List<GetAddressResponseDTO>>>> Get()
         {
             return Ok(await _addressService.GetAllAddresses());
         }
 
         //Apenas vai buscar uma modara pelo ID
         [HttpGet("{id}")]
-        public async Task<ActionResult<ServiceResponse<Address>>> GetSingle(int id)
+        public async Task<ActionResult<ServiceResponse<GetAddressResponseDTO>>> GetSingle(int id)
         {
             return Ok(await _addressService.GetAddressById(id));
         }
 
         [HttpPost]
-        public async Task<ActionResult<ServiceResponse<List<Address>>>> AddAddress(Address newAddress)
+        public async Task<ActionResult<ServiceResponse<List<GetAddressResponseDTO>>>> AddAddress(AddAddressRequestDTO newAddress)
         {
             return Ok(await _addressService.AddAddress(newAddress));
         }

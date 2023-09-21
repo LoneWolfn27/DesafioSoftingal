@@ -1,5 +1,7 @@
 global using DesafioSoftingal.Models;
 global using DesafioSoftingal.Services.AddressService;
+global using DesafioSoftingal.DTOS.Address;
+global using AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped<IAddressService, AddressService>();
 
 var app = builder.Build();

@@ -11,27 +11,33 @@ namespace DesafioSoftingal.Services.AddressService
             new Address(),
             new Address {Id = 1, Codpostal = "4444-000"}
         };
+        private readonly IMapper _mapper;
 
-        public async Task<ServiceResponse<List<Address>>> AddAddress(Address newAddress)
+        public AddressService(IMapper mapper)
         {
-            var serviceResponse = new ServiceResponse<List<Address>>();
-            addresses.Add(newAddress);
-            serviceResponse.Data = addresses;
+            _mapper = mapper;
+        }
+
+        public async Task<ServiceResponse<List<GetAddressResponseDTO>>> AddAddress(AddAddressRequestDTO newAddress)
+        {
+            var serviceResponse = new ServiceResponse<List<GetAddressResponseDTO>>();
+            addresses.Add(_mapper.Map<Address>(newAddress));
+            serviceResponse.Data = addresses.Select(a => _mapper.Map<GetAddressResponseDTO>(a)).ToList();
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<List<Address>>> GetAllAddresses()
+        public async Task<ServiceResponse<List<GetAddressResponseDTO>>> GetAllAddresses()
         {
-            var serviceResponse = new ServiceResponse<List<Address>>();
-            serviceResponse.Data = addresses;
+            var serviceResponse = new ServiceResponse<List<GetAddressResponseDTO>>();
+            serviceResponse.Data = addresses.Select(a => _mapper.Map<GetAddressResponseDTO>(a)).ToList();
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<Address>> GetAddressById(int id)
+        public async Task<ServiceResponse<GetAddressResponseDTO>> GetAddressById(int id)
         {
-            var serviceResponse = new ServiceResponse<Address>();
+            var serviceResponse = new ServiceResponse<GetAddressResponseDTO>();
             var address = addresses.FirstOrDefault(a => a.Id == id);
-            serviceResponse.Data = address;
+            serviceResponse.Data = _mapper.Map<GetAddressResponseDTO>(address);
             return serviceResponse;
         }
     }
