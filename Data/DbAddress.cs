@@ -13,5 +13,7 @@ namespace DesafioSoftingal.Data
         }
 
         public DbSet<Address> Addresses => Set<Address>();
+        public DbSet<User> Users => Set<User>();
+
     }
 }
