@@ -12,9 +12,10 @@ namespace DesafioSoftingal.Services.AddressService
             new Address {Id = 1, Codpostal = "4444-000"}
         };
         private readonly IMapper _mapper;
-
-        public AddressService(IMapper mapper)
+        private readonly DbAddress _address;
+        public AddressService(IMapper mapper, DbAddress address)
         {
+            _address = address;
             _mapper = mapper;
         }
 
@@ -31,15 +32,16 @@ namespace DesafioSoftingal.Services.AddressService
         public async Task<ServiceResponse<List<GetAddressResponseDTO>>> GetAllAddresses()
         {
             var serviceResponse = new ServiceResponse<List<GetAddressResponseDTO>>();
-            serviceResponse.Data = addresses.Select(a => _mapper.Map<GetAddressResponseDTO>(a)).ToList();
+            var dbAddressess = await _address.Addresses.ToListAsync();
+            serviceResponse.Data = dbAddressess.Select(a => _mapper.Map<GetAddressResponseDTO>(a)).ToList();
             return serviceResponse;
         }
 
         public async Task<ServiceResponse<GetAddressResponseDTO>> GetAddressById(int id)
         {
             var serviceResponse = new ServiceResponse<GetAddressResponseDTO>();
-            var address = addresses.FirstOrDefault(a => a.Id == id);
-            serviceResponse.Data = _mapper.Map<GetAddressResponseDTO>(address);
+            var dbAddress = await _address.Addresses.FirstOrDefaultAsync(a => a.Id == id);
+            serviceResponse.Data = _mapper.Map<GetAddressResponseDTO>(dbAddress);
             return serviceResponse;
         }
 

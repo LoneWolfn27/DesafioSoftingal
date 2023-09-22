@@ -2,11 +2,15 @@ global using DesafioSoftingal.Models;
 global using DesafioSoftingal.Services.AddressService;
 global using DesafioSoftingal.DTOS.Address;
 global using AutoMapper;
+global using Microsoft.EntityFrameworkCore;
+global using DesafioSoftingal.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddDbContext<DbAddress>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
