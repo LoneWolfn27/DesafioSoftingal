@@ -42,5 +42,35 @@ namespace DesafioSoftingal.Services.AddressService
             serviceResponse.Data = _mapper.Map<GetAddressResponseDTO>(address);
             return serviceResponse;
         }
+
+        public async Task<ServiceResponse<GetAddressResponseDTO>> UpdateAddress(UpdateAddressDTO updatedAddress)
+        {
+            var serviceResponse = new ServiceResponse<GetAddressResponseDTO>();
+
+            try {
+           
+                var address = addresses.FirstOrDefault(a => a.Id == updatedAddress.Id);
+                if(address is null)
+                    throw new Exception($"Address with Id '{updatedAddress.Id}' not found!!!");
+
+                    _mapper.Map<Address>(updatedAddress);
+
+                address.Morada = updatedAddress.Morada;
+                address.Codpostal = updatedAddress.Codpostal;
+                address.Rua = updatedAddress.Rua;
+                address.Freguesia = updatedAddress.Freguesia;
+                address.Concelho = updatedAddress.Concelho;
+                address.Distrito = updatedAddress.Distrito;
+                address.Pais = updatedAddress.Pais;
+
+                serviceResponse.Data = _mapper.Map<GetAddressResponseDTO>(address);
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
+            }
+            return serviceResponse;
+        }
     }
 }
