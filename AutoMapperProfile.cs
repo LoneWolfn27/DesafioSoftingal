@@ -11,6 +11,7 @@ namespace DesafioSoftingal
         {
             CreateMap<Address, GetAddressResponseDTO>();
             CreateMap<AddAddressRequestDTO, Address>();
+            CreateMap<UpdateAddressDTO, Address>();
         }
     }
 }

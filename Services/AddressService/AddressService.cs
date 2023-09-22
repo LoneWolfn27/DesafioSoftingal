@@ -53,7 +53,7 @@ namespace DesafioSoftingal.Services.AddressService
                 if(address is null)
                     throw new Exception($"Address with Id '{updatedAddress.Id}' not found!!!");
 
-                    _mapper.Map<Address>(updatedAddress);
+                    _mapper.Map(updatedAddress, address);
 
                 address.Morada = updatedAddress.Morada;
                 address.Codpostal = updatedAddress.Codpostal;
@@ -64,6 +64,28 @@ namespace DesafioSoftingal.Services.AddressService
                 address.Pais = updatedAddress.Pais;
 
                 serviceResponse.Data = _mapper.Map<GetAddressResponseDTO>(address);
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
+            }
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<List<GetAddressResponseDTO>>> DeleteAddresses(int id)
+        {
+            var serviceResponse = new ServiceResponse<List<GetAddressResponseDTO>>();
+
+            try {
+           
+                var address = addresses.FirstOrDefault(a => a.Id == id);
+                if(address is null)
+                    throw new Exception($"Address with Id '{id}' not found!!!");
+
+                addresses.Remove(address);
+
+                serviceResponse.Data = addresses.Select(a => _mapper.Map<GetAddressResponseDTO>(a)).ToList();
             }
             catch (Exception ex)
             {
