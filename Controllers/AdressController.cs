@@ -35,12 +35,14 @@ namespace DesafioSoftingal.Controllers
             return Ok(await _addressService.GetAddressById(id));
         }
 
+        //Adicionar uma mordada
         [HttpPost]
         public async Task<ActionResult<ServiceResponse<List<GetAddressResponseDTO>>>> AddAddress(AddAddressRequestDTO newAddress)
         {
             return Ok(await _addressService.AddAddress(newAddress));
         }
 
+        //Atualizar uma morada
         [HttpPut]
         public async Task<ActionResult<ServiceResponse<List<GetAddressResponseDTO>>>> UpdateAddress(UpdateAddressDTO updatedAddress)
         {
@@ -53,6 +55,7 @@ namespace DesafioSoftingal.Controllers
             return Ok(response);
         }
 
+        //Apagar uma morada por id
         [HttpDelete("{id}")]
         public async Task<ActionResult<ServiceResponse<GetAddressResponseDTO>>> DeleteAddress(int id)
         {

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DesafioSoftingal.DTOS.Users;
 
 namespace DesafioSoftingal.Controllers
 {
@@ -18,12 +17,12 @@ namespace DesafioSoftingal.Controllers
         }
 
         [HttpPost("Register")]
-        public async Task<ActionResult<ServiceResponse<int>>> Register(UserRegisterDTO request)
+        public async Task<ActionResult<ServiceResponse<int>>>Register(UserRegisterDTO request)
         {
             var response = await _userRepo.Register(
                 new User { Username = request.Username }, request.Password
             );
-            if(!response.Success)
+            if(!response.Sucess)
             {
                 return BadRequest(response);
             }
@@ -31,7 +30,7 @@ namespace DesafioSoftingal.Controllers
         }
 
         [HttpPost("Login")]
-        public async Task<ActionResult<ServiceResponse<int>>> Login(UserLoginDTO request)
+        public async Task<ActionResult<ServiceResponse<int>>>Login(UserLoginDTO request)
         {
         var response = await _userRepo.Login(request.Username, request.Password);
         if(!response.Success)

@@ -10,6 +10,8 @@ global using System.Security.Claims;
 global using Microsoft.IdentityModel.Tokens;
 global using Microsoft.OpenApi.Models;
 global using Microsoft.AspNetCore.Authentication.JwtBearer;
+global using Swashbuckle.AspNetCore.Filters;
+global using DesafioSoftingal.DTOS.Users;
 
 
 var builder = WebApplication.CreateBuilder(args);

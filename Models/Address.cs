@@ -15,6 +15,7 @@ namespace DesafioSoftingal.Models
         public string? Concelho { get; set; } = "Maia";
         public string? Distrito { get; set; } = "Porto";
         public string? Pais { get; set; } = "Portugal";
+        public User? User { get; set; }
 
     }
 }
