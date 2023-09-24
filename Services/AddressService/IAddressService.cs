@@ -10,8 +10,8 @@ namespace DesafioSoftingal.Services.AddressService
         Task<ServiceResponse<List<GetAddressResponseDTO>>> GetAllAddresses();
         Task<ServiceResponse<GetAddressResponseDTO>> GetAddressById(int id);
         Task<ServiceResponse<List<GetAddressResponseDTO>>> AddAddress(AddAddressRequestDTO newAddress);
-        Task<ServiceResponse<GetAddressResponseDTO>> UpdateAddress(UpdateAddressDTO newAddress);
-        Task<ServiceResponse<List<GetAddressResponseDTO>>> DeleteAddresses(int id);
+        Task<ServiceResponse<GetAddressResponseDTO>> UpdateAddress(UpdateAddressDTO updateAddress);
+        Task<ServiceResponse<List<GetAddressResponseDTO>>> DeleteAddress(int id);
 
     }
 }

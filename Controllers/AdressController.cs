@@ -59,7 +59,7 @@ namespace DesafioSoftingal.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<ServiceResponse<GetAddressResponseDTO>>> DeleteAddress(int id)
         {
-            var response = await _addressService.DeleteAddresses(id);
+            var response = await _addressService.DeleteAddress(id);
             if(response.Data is null)
             {
                 return NotFound(response);

@@ -22,7 +22,7 @@ namespace DesafioSoftingal.Controllers
             var response = await _userRepo.Register(
                 new User { Username = request.Username }, request.Password
             );
-            if(!response.Sucess)
+            if(!response.Success)
             {
                 return BadRequest(response);
             }
