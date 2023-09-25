@@ -9,11 +9,6 @@ namespace DesafioSoftingal.Controllers
     [Route("api/[controller]")]
     public class AdressController : ControllerBase
     {
-        
-        /*private static List<Address> addresses = new List<Address> {
-            new Address(),
-            new Address {Id = 1, Codpostal = "4444-000"}
-        };*/
         private readonly IAddressService _addressService;
 
         public AdressController(IAddressService addressService)
@@ -32,24 +27,29 @@ namespace DesafioSoftingal.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ServiceResponse<GetAddressResponseDTO>>> GetSingle(int id)
         {
-            return Ok(await _addressService.GetAddressById(id));
+           var response = await _addressService.GetAddressById(id);
+            if (response is null)
+                return NotFound("Address not found!!");
+
+            return Ok(response);
         }
 
         //Adicionar uma mordada
         [HttpPost]
         public async Task<ActionResult<ServiceResponse<List<GetAddressResponseDTO>>>> AddAddress(AddAddressRequestDTO newAddress)
         {
-            return Ok(await _addressService.AddAddress(newAddress));
+            var response = await _addressService.AddAddress(newAddress);
+            return Ok(response);
         }
 
         //Atualizar uma morada
-        [HttpPut]
-        public async Task<ActionResult<ServiceResponse<List<GetAddressResponseDTO>>>> UpdateAddress(UpdateAddressDTO updatedAddress)
+        [HttpPut("{id}")]
+        public async Task<ActionResult<ServiceResponse<List<GetAddressResponseDTO>>>> UpdateAddress(int id, UpdateAddressDTO updatedAddress)
         {
-            var response = await _addressService.UpdateAddress(updatedAddress);
+            var response = await _addressService.UpdateAddress(id, updatedAddress);
             if(response.Data is null)
             {
-                return NotFound(response);
+                return NotFound("Address not found!!");
             }
 
             return Ok(response);
@@ -62,7 +62,7 @@ namespace DesafioSoftingal.Controllers
             var response = await _addressService.DeleteAddress(id);
             if(response.Data is null)
             {
-                return NotFound(response);
+                return NotFound("Address not found!!");
             }
 
             return Ok(response);
